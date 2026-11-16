@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Berufswahl für Leo</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--ink:#14171c;--mu:#5d6470;--bd:#e3e6eb;--bg:#f6f7f9;--card:#fff;--acc:#2d5bd7;--acc2:#8fb0ff;--g:#1f7a4d;--gb:#e6f4ec;--y:#946200;--yb:#fdf3dc;--r:#b3261e;--rb:#fbe9e7;--dark:#11151c}
+*{box-sizing:border-box}
+body{margin:0;font:14.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:var(--dark);color:#fff}
+header .in{max-width:1280px;margin:0 auto;padding:18px 22px 0}
+header h1{font-size:22px;margin:0}
+header p{margin:4px 0 12px;color:#aab3c2;font-size:13px}
+.tabs{display:flex;gap:2px;overflow-x:auto}
+.tabs a{color:#cfd6e2;text-decoration:none;font-weight:600;font-size:13.5px;padding:10px 14px;border-radius:8px 8px 0 0;white-space:nowrap}
+.tabs a.on{background:var(--bg);color:var(--ink)}
+main{max-width:1280px;margin:0 auto;padding:20px 22px 80px}
+.pane{display:none}.pane.on{display:block}
+h2{font-size:20px;margin:6px 0 10px}
+h3{font-size:15.5px;margin:18px 0 8px}
+p,li{max-width:900px}
+.note{font-size:12.5px;color:var(--mu)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px 16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card h3{margin:0 0 6px}.card p{margin:5px 0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 14px}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px}
+.kpi .l{font-size:11.5px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.kpi .v{font-size:20px;font-weight:700;margin-top:2px}
+.kpi .s{font-size:12px;color:var(--mu)}
+.verdict{background:var(--dark);color:#fff;border-radius:14px;padding:16px 20px;margin:0 0 14px}
+.verdict p{max-width:none;margin:4px 0}.verdict b{color:#8fe3b5}
+/* filters */
+.fbar{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.2fr 1.2fr;gap:12px 16px;margin-bottom:10px}
+.fbar label{font-size:11.5px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.03em;display:block;margin-bottom:3px}
+.fbar label b{color:var(--ink);text-transform:none;letter-spacing:0}
+.fbar input[type=search],.fbar select{width:100%;font:inherit;padding:6px 9px;border:1px solid var(--bd);border-radius:8px;background:#fff}
+.fbar input[type=range]{width:100%}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font:inherit;font-size:12.5px;padding:3px 10px;border-radius:999px;border:1px solid var(--bd);background:#fff;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.frow{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:0 0 10px;font-size:13px}
+.frow .cnt{color:var(--mu)}
+.frow button.reset{font:inherit;font-size:12.5px;border:none;background:none;color:var(--acc);cursor:pointer;padding:0}
+details.w{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 14px;margin-bottom:10px}
+details.w summary{cursor:pointer;font-weight:650;font-size:13.5px}
+.wgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:10px 0 4px}
+.wgrid label{font-size:12px;font-weight:600}.wgrid label span{color:var(--mu);font-weight:500}
+.wgrid input{width:100%}
+/* table */
+.tw{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:8px 9px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:middle}
+th{background:#f1f3f6;font-size:11.5px;font-weight:700;color:#3a404a;white-space:nowrap;position:sticky;top:0;z-index:1}
+th.s{cursor:pointer;user-select:none}th.s:hover{color:var(--acc)}
+th.s.act{color:var(--acc)}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.row{cursor:pointer}tr.row:hover td{background:#f8f9fc}
+tr.det td{background:#fafbfd;font-size:13px;padding:10px 14px 14px}
+.nm{font-weight:650}.cat{font-size:11.5px;color:var(--mu)}
+.route{display:inline-block;font-size:11px;font-weight:600;padding:1px 8px;border-radius:999px;border:1px solid var(--bd);white-space:nowrap}
+.cell{display:inline-block;min-width:28px;padding:1px 0;border-radius:5px;font-weight:700;font-size:12px;text-align:center}
+.sc{font-weight:800;font-size:14px}
+.dq{font-size:11.5px;font-weight:700;white-space:nowrap}.dq.good{color:var(--g)}.dq.ok{color:var(--y)}.dq.weak{color:var(--r)}
+.range{position:relative;height:16px;min-width:140px}
+.range .ax{position:absolute;left:0;right:0;top:7px;height:2px;background:#eceff3}
+.range .b{position:absolute;top:4px;height:8px;border-radius:4px;background:var(--acc)}
+.range .o{position:absolute;top:1px;width:3px;height:14px;background:#e08a00;border-radius:2px}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mu);margin:8px 2px}
+.legend i{display:inline-block;width:18px;height:8px;border-radius:4px;background:var(--acc);vertical-align:middle;margin-right:5px}
+.legend i.o{width:3px;height:12px;background:#e08a00}
+/* paths */
+.lane{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin:10px 0}
+.lane h3{margin:0 0 8px}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.st{border-radius:10px;padding:9px 11px;font-size:13px;background:#f4f6f9;border:1px solid var(--bd);position:relative}
+.st .a{font-size:11px;color:var(--mu);font-weight:700;text-transform:uppercase}
+.st .t{font-weight:650;margin:2px 0}
+.st.g{background:var(--gb);border-color:#bfe3cf}.st.y{background:var(--yb);border-color:#f0dca8}.st.r{background:var(--rb);border-color:#f2c9c4}
+.st:not(:last-child)::after{content:"→";position:absolute;right:-11px;top:40%;color:#9aa1ad;font-weight:700}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
+.pg{background:var(--gb);color:var(--g)}.py{background:var(--yb);color:var(--y)}.pr{background:var(--rb);color:var(--r)}
+/* calc */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.calc label{display:block;font-size:13px;font-weight:600;margin:10px 0 2px}
+.calc input[type=range]{width:100%}
+.calc .out{font-size:30px;font-weight:800}
+.calc .r2{display:flex;justify-content:space-between;font-size:13.5px;border-bottom:1px dashed var(--bd);padding:4px 0}
+.calc .pre{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.src{font-size:12.5px;color:var(--mu);columns:2;column-gap:28px}.src li{break-inside:avoid;margin:3px 0}
+a{color:var(--acc)}
+@media(max-width:980px){.fbar{grid-template-columns:1fr 1fr}.kpis{grid-template-columns:1fr 1fr}.grid3,.grid2,.flow,.calc,.wgrid{grid-template-columns:1fr}.st::after{display:none}.src{columns:1}.hm{display:none}}
+</style>
+</head>
+<body>
+<header><div class="in">
+<h1>Berufswahl für Leo</h1>
+<p>15 Jahre, Basel, Ende 1. Jahr WMS. 31 Wege mit Lohn, KI-Risiko und Selbständigkeit. Stand 13.11.2026. Beträge in CHF brutto pro Jahr (×13 eingerechnet), ausser anders angegeben.</p>
+<nav class="tabs" id="tabs">
+<a href="#vergleich" class="on">Vergleich</a><a href="#wege">Wege nach Alter</a><a href="#rechner">Selbständig-Rechner</a><a href="#lotse">Lotse &amp; Pilot</a><a href="#plan">Plan &amp; Firmen</a><a href="#hinweise">Risiken &amp; Daten</a><a href="#quellen">Quellen</a>
+</nav></div></header>
+
+<main>
+<!-- ===================== VERGLEICH ===================== -->
+<section class="pane on" id="p-vergleich">
+<div class="verdict">
+<p><b>Empfehlung:</b> Lehre Elektroinstallateur EFZ ab August 2027, BM wenn möglich. Fluglotse und Pilot nebenbei als Freischuss mit 17–20 (beide nehmen EFZ bzw. BM).</p>
+<p class="note" style="color:#aab3c2">Klick auf eine Zeile für Details. Klick auf eine Spaltenüberschrift zum Sortieren. Filter oben.</p>
+</div>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="fbar">
+<div><label>Suche</label><input type="search" id="q" placeholder="z. B. Elektro, Pilot, Verkauf …"></div>
+<div><label>Min. Startlohn: <b id="lMinStart"></b></label><input type="range" id="minStart" min="0" max="110" step="5" value="0"></div>
+<div><label>Min. Top-Lohn: <b id="lMinTop"></b></label><input type="range" id="minTop" min="0" max="250" step="10" value="0"></div>
+<div><label>Min. KI-Festigkeit: <b id="lMinAi"></b></label><input type="range" id="minAi" min="0" max="10" step="0.5" value="0"></div>
+<div><label>Max. Jahre bis 1. Lohn: <b id="lMaxYrs"></b></label><input type="range" id="maxYrs" min="1" max="12" step="0.5" value="12"></div>
+<div style="grid-column:1/3"><label>Bereich</label><div class="chips" id="fCat"></div></div>
+<div style="grid-column:3/5"><label>Weg ab jetzt</label><div class="chips" id="fRoute"></div></div>
+<div><label>Weitere</label><div class="chips"><button class="chip" id="fOwn">Eigene Firma möglich</button><button class="chip" id="fGood">Nur gute Daten</button></div></div>
+</div>
+
+<details class="w"><summary>Score-Gewichtung anpassen (aktuell: <span id="wName">Ausgewogen</span>)</summary>
+<div class="chips" id="presets" style="margin-top:8px"></div>
+<div class="wgrid" id="wgrid"></div>
+<p class="note">Score = gewichteter Durchschnitt aus 5 Noten (1–10, meine Bewertung aus der Recherche). Geld-Note wird aus dem Top-Lohn berechnet.</p>
+</details>
+
+<div class="frow"><span class="cnt" id="cnt"></span><button class="reset" id="reset">Filter zurücksetzen</button></div>
+<div class="tw"><table id="tbl"><thead><tr>
+<th>#</th>
+<th class="s" data-k="name">Beruf</th>
+<th class="s hm" data-k="route">Weg</th>
+<th class="s" data-k="yrs">Jahre bis Lohn</th>
+<th class="hm">Ausbildungslohn</th>
+<th class="s" data-k="start">Start</th>
+<th class="s" data-k="top">Top 20 %</th>
+<th class="s" data-k="owner">Inhaber</th>
+<th class="hm">Lohnspanne (0–320k)</th>
+<th class="s" data-k="ai">KI-fest</th>
+<th class="s hm" data-k="dem">Nachfrage</th>
+<th class="s hm" data-k="odds">Chancen</th>
+<th class="s act" data-k="score">Score ▼</th>
+<th class="s hm" data-k="dq">Daten</th>
+</tr></thead><tbody></tbody></table></div>
+<div class="legend"><span><i></i>Start → Top 20 % (angestellt, ca. 30–35 J.)</span><span><i class="o"></i>Inhaber einer Firma (Schätzung)</span></div>
+<p class="note"><b>Start</b> = Lohn im 1. Jahr nach Abschluss. <b>Top 20 %</b> = was gute Leute mit ca. 30–35 angestellt verdienen. <b>Inhaber</b> = Gewinn vor Steuern mit kleiner Firma (2–5 Leute), Schätzung. <b>Chancen</b> = wie wahrscheinlich ein normaler bis guter Schüler reinkommt und durchkommt. Daten: <span class="dq good">gut</span> GAV/BFS/offiziell, <span class="dq ok">mittel</span> Presse/gemischt, <span class="dq weak">schwach</span> Lohnportale oder Schätzung.</p>
+</section>
+
+<!-- ===================== WEGE ===================== -->
+<section class="pane" id="p-wege">
+<h2>Die Wege nach Alter</h2>
+<div class="lane"><h3>A. WMS fertig machen</h3><div class="flow">
+<div class="st"><div class="a">16–18</div><div class="t">WMS Jahr 2–3</div>Schule, kein Lohn.</div>
+<div class="st"><div class="a">18–19</div><div class="t">Praxisjahr</div>Kaufmann EFZ + BM. Mind. ca. 1'920/Monat.</div>
+<div class="st y"><div class="a">19–24+</div><div class="t">FH Wirtschaft / Psychologie / Passerelle</div>Gute Türen, aber 3–12 weitere Jahre Ausbildung.</div>
+<div class="st r"><div class="a">19+</div><div class="t">Oder direkt Bürojob</div>Genau die Stellen, die zuerst wegfallen.</div>
+</div><p class="note">Später doch noch eine Lehre: möglich, Anrechnung einzeln, vielleicht 1 Jahr. Fertig mit ca. 22–23 statt 20.</p></div>
+<div class="lane"><h3>B. Elektroinstallateur (Empfehlung)</h3><div class="flow">
+<div class="st"><div class="a">16–20</div><div class="t">Lehre Elektroinstallateur EFZ</div>800 → 1'600/Monat ×13, total ca. 61'000. BM begleitend.</div>
+<div class="st g"><div class="a">20–23</div><div class="t">Monteur → Elektro-Projektleiter (BP)</div>GAV mind. 4'500 → 5'000/Monat. Nach BP ca. 80–95k.</div>
+<div class="st g"><div class="a">24–28</div><div class="t">Elektroinstallations- und Sicherheitsexperte (HFP)</div>BFS: eidg. Diplom Median ca. 10'100/Monat.</div>
+<div class="st g"><div class="a">27–30</div><div class="t">Eigene Firma mit ESTI-Bewilligung</div>Gründen oder Firma eines Pensionärs übernehmen.</div>
+</div><p class="note">Mit BM: FHNW Elektro- und Informationstechnik ohne Aufnahmeprüfung. skyguide und Pilot bleiben offen.</p></div>
+<div class="lane"><h3>C. Sanitär / Heizung</h3><div class="flow">
+<div class="st"><div class="a">16–19</div><div class="t">Sanitär- oder Heizungsinstallateur EFZ</div>3 Jahre, 850 → 1'400/Monat.</div>
+<div class="st g"><div class="a">19–21</div><div class="t">SVGW-Zertifikat + IWB-Bewilligung</div>EFZ + 2 Jahre Praxis + Kurs.</div>
+<div class="st g"><div class="a">21–25</div><div class="t">Eigene kleine Firma möglich</div>Schnellster Weg zum eigenen Chef.</div>
+<div class="st"><div class="a">25+</div><div class="t">Chefmonteur / Meister / Techniker HF</div>Oder verkürzte Zweitlehre (Sanitär ↔ Heizung).</div>
+</div></div>
+<div class="lane"><h3>D. Automobil-Mechatroniker</h3><div class="flow">
+<div class="st"><div class="a">16–20</div><div class="t">Lehre Automobil-Mechatroniker EFZ</div>700 → 1'300/Monat.</div>
+<div class="st y"><div class="a">20–24</div><div class="t">Automobildiagnostiker (BP)</div>70–87k. Gefragt: Diagnose und Hochvolt.</div>
+<div class="st r"><div class="a">25+</div><div class="t">Eigene Garage</div>Teure Geräte, E-Autos brauchen weniger Service.</div>
+<div class="st"><div class="a">Ausweg</div><div class="t">Wechsel in Elektro</div>Dann besser gleich dort anfangen.</div>
+</div></div>
+<div class="lane"><h3>E. Freischüsse (von jedem Weg aus)</h3><div class="flow">
+<div class="st"><div class="a">17</div><div class="t">SPHAIR (gratis)</div>Pilotentest. Zeigt früh, ob er Talent hat.</div>
+<div class="st"><div class="a">18–28</div><div class="t">skyguide-Eignungstest</div>Jedes EFZ oder BM reicht.</div>
+<div class="st g"><div class="a">Bestanden</div><div class="t">Bezahlte Ausbildung</div>Lotse: 30 Monate. Pilot: ca. 2 Jahre.</div>
+<div class="st"><div class="a">Nicht bestanden</div><div class="t">Nichts verloren</div>Er hat seinen Beruf.</div>
+</div></div>
+</section>
+
+<!-- ===================== RECHNER ===================== -->
+<section class="pane" id="p-rechner">
+<h2>Selbständig: was realistisch hängen bleibt</h2>
+<p>"Selbständig easy 15k im Monat?" Rechnet selbst. Voreinstellungen sind Werte aus der Recherche (Regieansätze CHF 90–150/h).</p>
+<div class="calc card">
+<div>
+<div class="pre" id="cpre"></div>
+<label>Stundenansatz an Kunden: <span id="vRate"></span> CHF</label><input type="range" id="rate" min="70" max="200" step="5" value="115">
+<label>Verrechenbare Stunden pro Jahr (pro Person): <span id="vHours"></span></label><input type="range" id="hours" min="900" max="1800" step="50" value="1400">
+<label>Angestellte: <span id="vEmp"></span></label><input type="range" id="emp" min="0" max="8" step="1" value="0">
+<label>Kosten pro Angestellten pro Jahr: <span id="vEc"></span> CHF</label><input type="range" id="ec" min="60000" max="120000" step="2500" value="80000">
+<label>Fixkosten Firma pro Jahr: <span id="vFix"></span> CHF</label><input type="range" id="fix" min="10000" max="120000" step="5000" value="35000">
+<label>Materialmarge in % vom Arbeitsumsatz: <span id="vMat"></span> %</label><input type="range" id="mat" min="0" max="30" step="1" value="10">
+</div>
+<div>
+<div class="r2"><span>Umsatz Arbeit</span><b id="oRev"></b></div>
+<div class="r2"><span>+ Materialmarge</span><b id="oMat"></b></div>
+<div class="r2"><span>− Angestellte</span><b id="oEmp"></b></div>
+<div class="r2"><span>− Fixkosten (steigen mit Team)</span><b id="oFix"></b></div>
+<div class="r2"><span>− AHV/BVG Inhaber (ca. 18 %)</span><b id="oSoc"></b></div>
+<div class="r2"><span>Gewinn Inhaber vor Steuern / Jahr</span><b id="oYear"></b></div>
+<p style="margin-top:14px">Pro Monat:</p>
+<div class="out" id="oMonth"></div>
+<p class="note" id="oNote"></p>
+<p class="note">Vereinfachtes Modell, meine Annahmen. Keine Schweizer Statistik zu Inhabereinkommen kleiner Handwerksfirmen gefunden. Vergleich: Median selbständige Männer CH (alle Branchen) CHF 85'700/Jahr (BFS).</p>
+</div></div>
+<div class="grid3" style="margin-top:12px">
+<div class="card"><h3>Ergebnis</h3><p>Allein: ca. 7–10k/Monat. 15k+ erst mit 2–4 Angestellten, die mehr einbringen als sie kosten. Da wird das Marketing des Bruders wertvoll.</p></div>
+<div class="card"><h3>Psychotherapeut</h3><p>Tarif CHF 154.80/h. Obergrenze ca. 197k Umsatz pro Vollzeit (Obsan). Realistisch netto ca. 9–10k/Monat. Tarif ab 2027 neu, Kürzung möglich.</p></div>
+<div class="card"><h3>Kaufen statt gründen</h3><p>Neue Firmen: ca. 50 % überleben 5 Jahre. Übernommene: ca. 95 %. Viele Inhaber gehen ohne Nachfolger in Pension.</p></div>
+</div>
+</section>
+
+<!-- ===================== LOTSE ===================== -->
+<section class="pane" id="p-lotse">
+<h2>Fluglotse &amp; Pilot</h2>
+<div class="grid2">
+<div class="card"><h3>Fluglotse (skyguide)</h3>
+<p><b>Lohn:</b> Durchschnitt ca. CHF 180–200k (SRF, 20 Minuten, Watson). Nach Ausbildung ca. 105k. Ausbildung 30 Monate, bezahlt: 4'000/Monat im 1. Jahr, 5'000 im 2.–3.</p>
+<p><b>Voraussetzung:</b> EFZ, Matura oder BM. Alter 18–28. Schweizer, EU/EFTA oder C-Bewilligung. Deutsch C1, Englisch B2.</p>
+<p><b>KI:</b> tief bis mittel. "Virtual Centre" verschiebt Arbeitsplätze, ersetzt keine Lotsen, frühestens 2031.</p>
+<p><b>Haken:</b> Sehr harte Selektion. Arbeitsorte nur Zürich und Genf.</p></div>
+<div class="card"><h3>Linienpilot (SWISS / Edelweiss)</h3>
+<p><b>Lohn:</b> First Officer ca. 100–140k, Captain ca. 190–320k (Quelle schwach).</p>
+<p><b>Voraussetzung:</b> BM reicht. Ab 17. Medizinische Klasse 1, Englisch B2, DLR-Test oder SPHAIR.</p>
+<p><b>Kosten:</b> ca. 150k. Bund zahlt 60k für Schweizer, SWISS leiht 90k. Nichts im Voraus, Rückzahlung danach.</p>
+<p><b>KI:</b> EASA hat Single-Pilot-Flüge 2025 gestoppt, "im nächsten Jahrzehnt nicht absehbar". Risiko: Airline-Krisen und Verlust der Medizin-Tauglichkeit.</p></div>
+</div>
+</section>
+
+<!-- ===================== PLAN ===================== -->
+<section class="pane" id="p-plan">
+<h2>Die nächsten 8 Wochen</h2>
+<p><b>Er ist nicht zu spät.</b> Lehrstellen 2027 sind seit August 2026 online und werden bis in den Frühling besetzt.</p>
+<div class="tw"><table><thead><tr><th>Wann</th><th>Was</th></tr></thead><tbody>
+<tr><td>Diese Woche</td><td>Termin BIZ Basel (gratis). Lehrstellenvermittlung Gewerbeverband Basel-Stadt (gratis). Alerts auf <a href="https://www.berufsberatung.ch/dyn/show/2930">LENA</a> und yousty.ch: BS/BL, Start 2027.</td></tr>
+<tr><td>Woche 1–4</td><td>3 Schnupperlehren: Elektro, Sanitär/Heizung, Auto. Entscheid nach Gefühl auf der Baustelle.</td></tr>
+<tr><td>Woche 2–5</td><td>Multicheck oder Check S2 (Auto: AGVS-Test). Antwort auf "Warum WMS abbrechen?": "Ich will technisch und mit den Händen arbeiten."</td></tr>
+<tr><td>Woche 4–8</td><td>Bewerben. Kleine Firmen haben oft bis im Frühling Plätze, direkt anrufen.</td></tr>
+<tr><td>Mit 17–20</td><td>SPHAIR und skyguide-Test als Freischuss.</td></tr>
+</tbody></table></div>
+<h2 style="margin-top:22px">Lehrbetriebe Region Basel</h2>
+<div class="tw"><table><thead><tr><th>Bereich</th><th>Firma</th><th>Gefunden</th></tr></thead><tbody>
+<tr><td>Elektro</td><td>ETAVIS, Basel/Münchenstein</td><td>Lehrstelle 2027: Elektroinstallateur / Montage-Elektriker</td></tr>
+<tr><td>Elektro</td><td>Bell Food Group, Basel</td><td>Bildet Elektroinstallateure aus; Automatiker 2027</td></tr>
+<tr><td>Energie</td><td>Primeo Energie, Münchenstein</td><td>Netzelektriker EFZ (Schnupperwoche Pflicht)</td></tr>
+<tr><td>Elektroplanung</td><td>Selmoni AG (Münchenstein), Elprom Partner (Pratteln)</td><td>Elektroplaner EFZ, Elprom 2027</td></tr>
+<tr><td>Heizung/Sanitär</td><td>Klima AG (Hälg Group), Hochbergerstr. 60c, Basel</td><td>Heizungsinstallateur EFZ 2027, Sanitär ebenfalls</td></tr>
+<tr><td>Lift</td><td>Schindler</td><td>300+ Lernende, Polymechaniker / Anlagenbauer mit Liftmontage</td></tr>
+<tr><td>Auto</td><td>AMAG Basel</td><td>Automobil-Mechatroniker 2027: 6 Wochen Ferien, 1'500 an Fahrstunden</td></tr>
+<tr><td>Industrie</td><td>Roche Basel/Kaiseraugst; aprentas (Novartis + 90 Firmen)</td><td>Automatiker, Polymechaniker. Roche-Infoanlass 13.3.2027</td></tr>
+<tr><td>Flugzeug</td><td>Jet Aviation, EuroAirport</td><td>Polymechaniker EFZ, Schwerpunkt Flugzeugwartung</td></tr>
+<tr><td>Direkt anfragen</td><td>Burkhalter-Gruppe (z. B. K. Schweizer AG, Riehen), Bouygues E&amp;S, Equans, IWB, Emil Frey</td><td>Keine Lehrstelle 2027 online gefunden. Anrufen.</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ===================== HINWEISE ===================== -->
+<section class="pane" id="p-hinweise">
+<h2>Ehrliche Risiken</h2>
+<ul>
+<li><b>Handwerk ist nicht 100 % sicher.</b> McKinsey: humanoide Roboter auf Baustellen in 10+ Jahren, Altbau ist der schwierigste Fall. Was nach ca. 2036 kommt, weiss niemand.</li>
+<li><b>Energiewende kommt in Wellen.</b> Wärmepumpen −29 % 2024, flach 2025 (Öl/Gas-Kessel +65,5 %). Solar-Zubau 2025 gesunken. Elektriker decken alle Märkte ab.</li>
+<li><b>Mangelindex fiel 2025 um 22 %.</b> Elektriker blieben trotzdem in den Top 4 von 32 Berufsgruppen.</li>
+<li><b>Körperlich hart.</b> Wenn er die Baustelle in der Schnupperlehre hasst, ist das Ranking egal.</li>
+<li><b>Elektroinstallateur (4 J.) statt Montage-Elektriker (3 J.):</b> höherer GAV-Mindestlohn (4'500 vs 4'300) und besserer Weg zur Bewilligung.</li>
+<li><b>Gamen und Tastatur</b> passen im Elektro: Gebäudeautomation, KNX/Smart Home, PV-Monitoring, Ladestationen.</li>
+</ul>
+<h2>Korrekturen gegenüber erster Version</h2>
+<ul>
+<li>Sanitär/Heizung tiefer: 2025 "stabil", nicht im Mangel.</li>
+<li>WMS als Plattform höher: Der Wert liegt in der BM (FH ohne Prüfung, FH Psychologie, Passerelle, Pilot).</li>
+<li>Fluglotse ergänzt.</li>
+</ul>
+<h2>Was nicht sauber belegt ist</h2>
+<ul>
+<li>Marktlöhne oft von lohncheck.ch (modelliert). GAV-Mindestlöhne und Lehrlingslöhne sind solide.</li>
+<li>Lohnskalen skyguide, SWISS (Aeropers), Polizei BS, BAZG nicht gefunden.</li>
+<li>"Top 20 %" und "Inhaber" sind meine Schätzungen aus GAV, BFS-Weiterbildungsdaten und Regieansätzen.</li>
+<li>Annahme: "Werkstatt Mittelschule" = Wirtschaftsmittelschule (WMS). Eine Werkstatt-Mittelschule gibt es in BS/BL nicht.</li>
+</ul>
+</section>
+
+<!-- ===================== QUELLEN ===================== -->
+<section class="pane" id="p-quellen">
+<h2>Quellen</h2>
+<ul class="src">
+<li><a href="https://www.adeccogroup.com/-/media/project/adecco-group/switzerland/swiss-skills-shortage/2025/files/medienmitteilung_fkm_national_2025.pdf">Adecco/UZH Fachkräftemangel-Index 2025</a></li>
+<li><a href="https://www.adeccogroup.com/-/media/project/adecco-group/switzerland/job-index/job-index-q3-2025/job_index_q3_2025_studienbericht.pdf">Adecco Job Index Q3 2025</a></li>
+<li><a href="https://www.netzwoche.ch/news/2025-10-27/kuenstliche-intelligenz-hinterlaesst-deutliche-spuren-auf-dem-schweizer">KOF/ETH: KI und Arbeitslosigkeit</a></li>
+<li><a href="https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure">ILO 2025 KI-Exposition</a></li>
+<li><a href="https://www.mckinsey.com/industries/engineering-construction-and-building-materials/our-insights/humanoid-robots-in-the-construction-industry-a-future-vision">McKinsey: Roboter am Bau</a></li>
+<li><a href="https://cf-images.yousty.ch/pages%2F613%2Fdocuments%2F1b4c27063278e1464ce838adfc483ce7%2FMedienmitteilung_I_Aktuelle_Zahlen_zur_Lehrstellensituation_I_2025.pdf">Yousty offene Lehrstellen 2025</a></li>
+<li><a href="https://eit.swiss/fileadmin/user_upload/documents/Branche/GAV/_de/ELEKT_Mindestloehne_2025_DE.pdf">EIT.swiss GAV-Mindestlöhne</a></li>
+<li><a href="https://eitost.ch/wp-content/uploads/Empfohlene-Loehne-Lernende-ab-2025.pdf">EIT Ost Lehrlingslöhne</a></li>
+<li><a href="https://suissetec.ch/files/PDFs/Recht/GAV_Salaer/Deutsch/Mindestl%C3%B6hne%202026-d.pdf">suissetec Mindestlöhne 2026</a></li>
+<li><a href="https://suissetec.ch/files/PDFs/Bildung/Grundbildung/Empfehlung%20Verg%C3%BCtungLernende%202025%20de.pdf">suissetec Lehrlingslöhne</a></li>
+<li><a href="https://syna.ch/images/GAV/ZV_f%C3%BCr_das_Maler-_und_Gipsergewerbe_2026_D.pdf">Maler GAV 2026</a></li>
+<li><a href="https://jardinsuisse.ch/documents/8810/2d2_I_PE_Lohnregulativ_Galabau_2025_d_fUKEETQ.pdf">JardinSuisse Lohnregulativ 2025</a></li>
+<li><a href="https://gebaeudeklima-schweiz.ch/de/News/Newsmeldung?newsid=89">GebäudeKlima Heizungsmarkt 2025</a></li>
+<li><a href="https://dam-api.bfs.admin.ch/hub/api/dam/assets/23825796/master">BFS Einkommen höhere Berufsbildung</a></li>
+<li><a href="https://lohncheck.ch/de/lohn/technik">lohncheck.ch (Marktlöhne, modelliert)</a></li>
+<li><a href="https://www.rister.ch/de/post/elektrofirma-gruenden-schweiz/">Elektrofirma gründen (ESTI)</a></li>
+<li><a href="https://www.kmu.admin.ch/de/kmu-in-zahlen-uberlebensrate-und-firmenschliessungen">KMU-Portal Überlebensraten</a></li>
+<li><a href="https://law.ch/lawnews/2026/07/schweizer-erwerbseinkommen-das-zeigen-die-neuen-zahlen-des-bfs/">BFS Einkommen Selbständige</a></li>
+<li><a href="https://www.bag.admin.ch/dam/fr/sd-web/KM-lniD3sYwX/20260624_Bericht%20BAG%20zur%20formativen%20Evaluation%20Neuregelung%20psych%20Psychotherapie.pdf">BAG Psychotherapie-Tarif</a></li>
+<li><a href="https://www.obsan.admin.ch/sites/default/files/2025-08/obsan_07_2025_bericht.pdf">Obsan 2025 Psychotherapie</a></li>
+<li><a href="https://www.20min.ch/story/190000-franken-durchschnittslohn-doch-der-schweiz-gehen-die-fluglotsen-aus-475802582189">20 Minuten: Fluglotsen 190'000</a></li>
+<li><a href="https://www.watson.ch/schweiz/luftfahrt/812085344-das-naechste-flugchaos-droht-nun-verdoppelt-skyguide-die-loehne-fuer-neue">Watson: skyguide Löhne</a></li>
+<li><a href="https://www.berufsberatung.ch/de/aus-weiterbildungen/skyguide/flugverkehrsleiter-in-hf">Flugverkehrsleiter HF</a></li>
+<li><a href="https://www.lufthansa-aviation-training.com/en/web/european-flight-academy/costs-and-services-training-in-switzerland">Pilotenausbildung CH: Kosten</a></li>
+<li><a href="https://www.airport-technology.com/news/easa-suspends-single-pilot-operations/">EASA stoppt Single-Pilot</a></li>
+<li><a href="https://www.suedostschweiz.ch/panorama/was-verdient-ein-lokfuehrer-bei-der-sbb-bis-zu-8190-franken-im-monat-2124489">Lokführer SBB Lohn</a></li>
+<li><a href="https://www.medi-karriere.ch/medizinische-berufe/rettungssanitaeter-lohn/">Rettungssanitäter Lohn</a></li>
+<li><a href="https://www.obsan.admin.ch/sites/default/files/2024-06/obsan_bulletin_2024_02_d.pdf">Obsan Pflege-Bedarf</a></li>
+<li><a href="https://www.finma.ch/news/2026/06/20260617-mm-vermittlersymposium/">FINMA Versicherungsvermittler</a></li>
+<li><a href="https://www.comparis.ch/immobilien/verkaufen/maklertipps/makler-verkauf-schweiz">Comparis Maklerprovision</a></li>
+<li><a href="https://www.electrive.net/2026/01/05/jahresbilanz-2025-schweiz-erreicht-e-auto-anteil-von-ueber-22-prozent/">E-Auto-Anteil 2025</a></li>
+<li><a href="https://www.pv-magazine.de/2026/07/10/photovoltaik-zubau-in-der-schweiz-sinkt-2025-auf-133-gigawatt/">PV-Zubau 2025</a></li>
+<li><a href="https://www.bs.ch/news/2023-die-waermeversorgung-basel-stadt-wird-bis-2037-erneuerbar">Basel-Stadt Wärme 2037</a></li>
+<li><a href="https://www.fhnw.ch/de/psychologie/studium/angebot/studiengaenge/bachelor-arbeits-organisations-personalpsychologie">FHNW Angewandte Psychologie</a></li>
+<li><a href="https://www.bs.ch/node/28303">WMS Basel-Stadt</a></li>
+<li><a href="https://media.bs.ch/original_file/86f6a8704617cc1efb2ea07016de783d0a2940c0/lehrstellenbericht-2025.pdf">Lehrstellenbericht BS 2025</a></li>
+<li><a href="https://www.berufsberatung.ch/dyn/show/2930">LENA Lehrstellennachweis</a></li>
+</ul>
+</section>
+</main>
+
+<script>
+// ---------- Daten ----------
+// yrs = Jahre ab jetzt bis zum ersten vollen Lohn; train = Lohn während Ausbildung (Text)
+// start/top/owner in CHF 1000/Jahr; ai/dem/own/odds = Noten 1-10
+const D=[
+{n:"Elektroinstallateur → HFP / eigene Firma",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:4,train:"800–1'600/Mt",start:63,top:130,owner:200,ai:9,dem:9,own:9,odds:8,dq:"good",lic:"ESTI-Bewilligung (HFP) für eigene Firma",x:"Einziger Handwerksberuf in den Top 4 Mangelberufen 2025. 341 offene Lehrstellen (Platz 4 CH). GAV mind. 4'500 → 5'000/Mt ×13. Projektleiter (BP) ca. 80–95k, HFP Median ca. 10'100/Mt."},
+{n:"Sanitär / Heizung → eigene Firma",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:3,train:"850–1'400/Mt",start:60,top:110,owner:150,ai:9.5,dem:6.5,own:8,odds:9,dq:"ok",lic:"IWB-Bewilligung + SVGW-Zertifikat (EFZ + 2 J.)",x:"GAV 4'600 → 5'300/Mt. 2025 laut Adecco 'stabil', nicht im Mangel. Wärmepumpen 2025 flach. Basel: Öl-Heizungen müssen bis 2037 raus, Gas für Heizen endet 2037."},
+{n:"Fluglotse (skyguide)",c:"Verkehr & Luftfahrt",r:"Beides",yrs:2.5,train:"4'000–5'000/Mt",start:105,top:200,owner:null,ai:7,dem:8,own:1,odds:3,dq:"ok",lic:"EFZ/Matura/BM, Alter 18–28, C1 Deutsch, B2 Englisch",x:"Durchschnitt 180–200k laut Presse. 30 Monate bezahlte Ausbildung. Sehr harte Selektion. Nur Zürich und Genf. Jahre = ab EFZ/BM."},
+{n:"Linienpilot (SWISS/Edelweiss)",c:"Verkehr & Luftfahrt",r:"Beides",yrs:2,train:"keiner (Darlehen 90k)",start:110,top:320,owner:null,ai:8,dem:6,own:1,odds:3,dq:"weak",lic:"BM/Matura/EFZ, Medizin Klasse 1, DLR-Test",x:"FO 100–140k, Captain 190–320k (Quelle schwach). Kosten 150k: Bund 60k, SWISS leiht 90k. Zyklisch (Covid-Stopp). Jahre = ab BM."},
+{n:"Psychotherapeut (eigene Praxis)",c:"Gesundheit & Soziales",r:"WMS fertig",yrs:11,train:"Studium, dann Assistenz ca. 70k",start:70,top:110,owner:120,ai:7,dem:9,own:7,odds:4,dq:"good",lic:"Master + Weiterbildung 4–6 J. + 3 J. klinisch",x:"Tarif 154.80/h, max. ca. 197k Umsatz pro Vollzeit. Netto realistisch 9–10k/Mt mit 30–32. Tarif 2027 neu. Weiterbildung kostet 40–90k."},
+{n:"Kältesystem-Monteur (Wärmepumpen)",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:4,train:"ca. 800–1'500/Mt (geschätzt)",start:65,top:95,owner:130,ai:9,dem:7,own:6,odds:8,dq:"weak",lic:"Kältemittel-Bewilligung",x:"Median ca. 76k (modelliert). Servicetechniker 85–95k. Wärmepumpen und Kühlung, Service läuft auch in Flauten."},
+{n:"Treuhänder BP / eigenes Treuhandbüro",c:"Büro & Verkauf",r:"WMS fertig",yrs:6,train:"WMS ohne Lohn, dann Kaufmann",start:62,top:130,owner:150,ai:4,dem:6,own:7,odds:7,dq:"ok",lic:"keine (Treuhänder BP empfohlen)",x:"Median 107k Nordwestschweiz (Careerplus 2025). Buchhaltung und Steuern sind stark KI-exponiert, Beratung weniger."},
+{n:"Polizist BS/BL",c:"Sicherheit & Staat",r:"Beides",yrs:2,train:"voller Lohn ab Tag 1",start:80,top:110,owner:null,ai:9,dem:7,own:1,odds:6,dq:"weak",lic:"EFZ oder höher, CH oder C-Bewilligung",x:"BS: 2 Jahre Ausbildung, Lohnklasse 11 ×13. Lohnbeträge nicht publiziert, Zahlen sind Schätzungen. Jahre = ab EFZ/BM."},
+{n:"Gebäudetechnikplaner → HF/FH",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:4,train:"850–1'600/Mt",start:63,top:125,owner:150,ai:5,dem:7,own:5,odds:7,dq:"ok",lic:"Ingenieurbüro später über HF/FH",x:"Planen am PC (CAD, Berechnungen) ist stärker KI-exponiert als Montieren. Gute Nachfrage durch Energiewende."},
+{n:"Lift-Servicetechniker (Schindler)",c:"Technik & Industrie",r:"Lehre jetzt",yrs:4,train:"ca. 600–1'250/Mt",start:63,top:95,owner:null,ai:8.5,dem:7,own:2,odds:8,dq:"weak",lic:"–",x:"Über Polymechaniker oder Anlagen- und Apparatebauer mit Liftmontage. Service-Inserat 85–95k. Wiederkehrende Wartung, gesetzlich vorgeschrieben."},
+{n:"Rettungssanitäter HF",c:"Gesundheit & Soziales",r:"Beides",yrs:3,train:"ca. 2'700/Mt",start:70,top:95,owner:null,ai:9.5,dem:8,own:1,odds:7,dq:"ok",lic:"–",x:"Bern GAV-Band 5'898–9'437/Mt. 7,1 % der Stellen unbesetzt (2023). Jahre = ab EFZ/BM."},
+{n:"Pflegefachperson HF",c:"Gesundheit & Soziales",r:"Beides",yrs:3,train:"Ausbildungslohn HF",start:73,top:90,owner:null,ai:9,dem:10,own:2,odds:8,dq:"ok",lic:"–",x:"Obsan: bis 2029 nur 67 % des Bedarfs gedeckt. Stelleninserate 2019–23 von 44'500 auf 70'000. Jahre = ab EFZ/BM."},
+{n:"Lokführer SBB",c:"Verkehr & Luftfahrt",r:"Beides",yrs:1.5,train:"4'545–5'950/Mt",start:76,top:106,owner:null,ai:6,dem:6,own:1,odds:7,dq:"good",lic:"3-jährige Lehre oder Matura, Deutsch C2",x:"Start 5'726–6'095/Mt ×13, max. 8'190/Mt + 500–800 Zulagen/Mt. Automatisierung (GoA4) Horizont 2038–40, unsicher. Jahre = ab EFZ/BM."},
+{n:"Spengler / Dachdecker",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:3,train:"ca. 850–1'400/Mt",start:60,top:80,owner:120,ai:9,dem:6,own:6,odds:9,dq:"weak",lic:"keine",x:"Spengler im GAV Gebäudetechnik: 4'600 → 5'300/Mt. Dachdecker-GAV gilt in BS/BL nicht. Eigene Firma einfach, Konkurrenz entsprechend."},
+{n:"Netzelektriker",c:"Technik & Industrie",r:"Lehre jetzt",yrs:3,train:"–",start:58,top:88,owner:null,ai:9,dem:7,own:1,odds:8,dq:"weak",lic:"–",x:"Stromnetze für Werke (Primeo, IWB). Netzausbau wegen Solar und E-Mobilität. Kaum selbständig."},
+{n:"Automatiker / Polymech (Pharma)",c:"Technik & Industrie",r:"Lehre jetzt",yrs:4,train:"570–1'265/Mt",start:60,top:120,owner:null,ai:6,dem:5,own:2,odds:7,dq:"ok",lic:"–",x:"Roche, Novartis/aprentas in Basel. Fabriken automatisieren zuerst."},
+{n:"Technischer Verkauf B2B (nach Lehre)",c:"Büro & Verkauf",r:"Lehre jetzt",yrs:6,train:"Lehrlingslohn",start:70,top:110,owner:140,ai:6.5,dem:6,own:4,odds:7,dq:"weak",lic:"–",x:"Aussendienst 49–86k + Provision. Fachwissen aus der Lehre gibt Glaubwürdigkeit beim Kunden. Verkaufsfachmann BP +10–20 %."},
+{n:"FH Betriebsökonomie",c:"Büro & Verkauf",r:"WMS fertig",yrs:6,train:"WMS ohne Lohn, Studium",start:80,top:130,owner:null,ai:4,dem:4,own:4,odds:7,dq:"ok",lic:"–",x:"Mit kaufmännischer BM ohne Prüfung. FH-Absolventen Median ca. 113k (alle Fächer). Junior-Bürostellen schrumpfen."},
+{n:"Solarinstallateur",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:3,train:"900–1'300/Mt",start:59,top:85,owner:110,ai:8.5,dem:5,own:4,odds:9,dq:"ok",lic:"Anschluss braucht Elektro-Bewilligung",x:"Neuer Beruf seit 2024. Zubau fiel 2025 von 1,8 auf ca. 1,3–1,5 GW. Batteriespeicher +70 %."},
+{n:"Zimmermann",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:4,train:"–",start:59,top:75,owner:110,ai:7.5,dem:6,own:5,odds:8,dq:"weak",lic:"keine",x:"4'539 → 5'614/Mt nach 10 Jahren (Tabelle 2023). Holzbau wird stärker vorfabriziert."},
+{n:"Maler",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:3,train:"–",start:57,top:75,owner:100,ai:8,dem:5,own:5,odds:9,dq:"ok",lic:"keine",x:"GAV 4'351 → 5'744/Mt (Vorarbeiter). Regie ca. 60–90/h. Einfach zu starten, viel Konkurrenz."},
+{n:"Landschaftsgärtner",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:3,train:"–",start:62,top:70,owner:100,ai:8,dem:6,own:6,odds:9,dq:"ok",lic:"keine",x:"GAV 4'800 → 5'200/Mt. 198 offene Lehrstellen (Platz 8)."},
+{n:"Grenzwache BAZG",c:"Sicherheit & Staat",r:"Beides",yrs:2,train:"voller Lohn",start:70,top:95,owner:null,ai:7,dem:6,own:1,odds:6,dq:"weak",lic:"Lehre oder Matura",x:"2 Jahre Ausbildung bei vollem Lohn, Stelle garantiert. Lohnklasse nicht publiziert, Zahlen geschätzt. Jahre = ab EFZ/BM."},
+{n:"Immobilienmakler",c:"Büro & Verkauf",r:"WMS fertig",yrs:4,train:"WMS ohne Lohn",start:57,top:150,owner:150,ai:5,dem:4,own:7,odds:6,dq:"weak",lic:"keine",x:"Provision 2–3 %. Kein geschützter Titel. Discounter (z. B. Neho) drücken Provisionen. Angestellt 57–98k."},
+{n:"Automobilverkäufer",c:"Büro & Verkauf",r:"Beides",yrs:4,train:"Lehrlingslohn",start:62,top:95,owner:null,ai:6,dem:5,own:3,odds:8,dq:"weak",lic:"–",x:"Median ca. 76k, Fixlohn + Provision. Persönlicher Verkauf grosser Beträge ist weniger KI-exponiert als Innendienst."},
+{n:"Automobil-Mechatroniker",c:"Technik & Industrie",r:"Lehre jetzt",yrs:4,train:"700–1'300/Mt",start:61,top:87,owner:100,ai:8,dem:4,own:3,odds:8,dq:"ok",lic:"keine",x:"E-Autos 22,7 % der Neuwagen 2025, brauchen weniger Service. Diagnostiker BP 70–87k. Garage braucht viel Kapital."},
+{n:"Versicherungsvermittler",c:"Büro & Verkauf",r:"Beides",yrs:4,train:"–",start:65,top:150,owner:null,ai:4,dem:4,own:5,odds:7,dq:"weak",lic:"FINMA-Register, VBV, EFZ nötig",x:"Seit 2024: 7'000 Neuregistrierungen, 3'000 Austritte. Median 78k. Provisionen sehr ungleich verteilt."},
+{n:"Kaminfeger",c:"Bau & Gebäude",r:"Lehre jetzt",yrs:3,train:"–",start:58,top:80,owner:100,ai:8,dem:3,own:5,odds:8,dq:"weak",lic:"Kreismonopol in BS/BL aufgehoben",x:"Markt schrumpft, weil Öl- und Gasheizungen verschwinden."},
+{n:"Lastwagenführer / Logistik",c:"Verkehr & Luftfahrt",r:"Lehre jetzt",yrs:3,train:"–",start:58,top:70,owner:null,ai:5,dem:6,own:3,odds:9,dq:"weak",lic:"Führerausweis C",x:"Median ca. 61k. Lagerautomatisierung ist das nähere Risiko."},
+{n:"Informatiker EFZ",c:"Technik & Industrie",r:"Lehre jetzt",yrs:4,train:"–",start:68,top:120,owner:null,ai:3,dem:3,own:4,odds:6,dq:"ok",lic:"–",x:"ICT 2025 erstmals im Überangebot (Adecco). KOF: Programmierer unter den am stärksten betroffenen."},
+{n:"Kaufmann EFZ (Büro)",c:"Büro & Verkauf",r:"WMS fertig",yrs:3,train:"WMS ohne Lohn, Praxisjahr ca. 1'920/Mt",start:61,top:85,owner:null,ai:2,dem:2,own:2,odds:8,dq:"good",lic:"–",x:"Büro-Inserate −17,4 %/Jahr 2023–25. Kaufmännische Berufe im Index von Platz 21 auf 28. Einstiegsstellen schrumpfen zuerst."}
+];
+const CATS=["Alle",...new Set(D.map(d=>d.c))], ROUTES=["Alle","Lehre jetzt","WMS fertig","Beides"];
+const DQL={good:"gut",ok:"mittel",weak:"schwach"}, DQN={good:3,ok:2,weak:1};
+const PRE=[["Ausgewogen",[30,20,25,15,10]],["KI-Angst",[50,15,20,10,5]],["Maximal Geld",[15,10,50,15,10]],["Eigene Firma",[20,15,20,40,5]],["Sichere Wette",[25,15,15,10,35]]];
+const WK=["KI-fest","Nachfrage","Geld","Eigene Firma","Chancen"];
+let S={q:"",minStart:0,minTop:0,minAi:0,maxYrs:12,cat:"Alle",route:"Alle",own:false,good:false,sort:"score",dir:-1,w:[...PRE[0][1]],wn:"Ausgewogen",open:null};
+const money=d=>Math.min(10,Math.max(1,(Math.max(d.top,d.owner||0)-60)/22+3)); // 60k→3, 214k→10
+const score=d=>{const v=[d.ai,d.dem,money(d),d.own,d.odds],sw=S.w.reduce((a,b)=>a+b,0)||1;return v.reduce((a,x,i)=>a+x*S.w[i],0)/sw};
+const k=n=>n==null?"–":n+"k";
+const $=id=>document.getElementById(id);
+function col(v){const h=v>=8?[142,55,36]:v>=6?[80,45,36]:v>=4?[38,85,40]:[4,70,45];return `background:hsla(${h[0]},${h[1]}%,${h[2]}%,.14);color:hsl(${h[0]},${h[1]}%,${h[2]}%)`}
+function chips(el,list,key){el.innerHTML=list.map(x=>`<button class="chip${S[key]===x?" on":""}" data-v="${x}">${x}</button>`).join("");el.querySelectorAll("button").forEach(b=>b.onclick=()=>{S[key]=b.dataset.v;chips(el,list,key);render()})}
+function weights(){
+  $("presets").innerHTML=PRE.map(p=>`<button class="chip${S.wn===p[0]?" on":""}">${p[0]}</button>`).join("");
+  $("presets").querySelectorAll("button").forEach((b,i)=>b.onclick=()=>{S.w=[...PRE[i][1]];S.wn=PRE[i][0];weights();render()});
+  $("wgrid").innerHTML=WK.map((n,i)=>`<div><label>${n} <span>${S.w[i]}</span></label><input type="range" min="0" max="60" value="${S.w[i]}" data-i="${i}"></div>`).join("");
+  $("wgrid").querySelectorAll("input").forEach(el=>el.oninput=e=>{const i=+e.target.dataset.i;S.w[i]=+e.target.value;e.target.previousElementSibling.querySelector("span").textContent=S.w[i];S.wn="Eigene";$("presets").querySelectorAll("button").forEach(b=>b.classList.remove("on"));render()});
+  $("wName").textContent=S.wn;
+}
+function render(){
+  $("wName").textContent=S.wn;
+  $("lMinStart").textContent=S.minStart?S.minStart+"k":"alle";$("lMinTop").textContent=S.minTop?S.minTop+"k":"alle";$("lMinAi").textContent=S.minAi?S.minAi:"alle";$("lMaxYrs").textContent=S.maxYrs>=12?"alle":S.maxYrs;
+  const all=D.map(d=>({...d,score:score(d)})).sort((a,b)=>b.score-a.score);all.forEach((d,i)=>d.rank=i+1);
+  let r=all.filter(d=>(!S.q||(d.n+d.c+d.x).toLowerCase().includes(S.q.toLowerCase()))&&d.start>=S.minStart&&Math.max(d.top,d.owner||0)>=S.minTop&&d.ai>=S.minAi&&d.yrs<=S.maxYrs&&(S.cat==="Alle"||d.c===S.cat)&&(S.route==="Alle"||d.r===S.route)&&(!S.own||d.owner!=null)&&(!S.good||d.dq==="good"));
+  const key=S.sort;r.sort((a,b)=>{let x=a[key],y=b[key];if(key==="dq"){x=DQN[x];y=DQN[y]}if(key==="name"){return S.dir*a.n.localeCompare(b.n)}if(key==="route"){return S.dir*a.r.localeCompare(b.r)}x=x==null?-1:x;y=y==null?-1:y;return S.dir*(x-y)});
+  $("cnt").textContent=`${r.length} von ${D.length} Wegen`;
+  const X=v=>Math.min(100,v/320*100);
+  $("tbl").querySelector("tbody").innerHTML=r.map(d=>{
+    const row=`<tr class="row" data-n="${d.n}"><td class="cat">${d.rank}</td><td><div class="nm">${d.n}</div><div class="cat">${d.c}</div></td><td class="hm"><span class="route">${d.r}</span></td><td class="num">${String(d.yrs).replace(".",",")}</td><td class="hm cat">${d.train}</td><td class="num"><b>${k(d.start)}</b></td><td class="num"><b>${k(d.top)}</b></td><td class="num">${k(d.owner)}</td><td class="hm"><div class="range"><div class="ax"></div><div class="b" style="left:${X(d.start)}%;width:${Math.max(1,X(d.top)-X(d.start))}%"></div>${d.owner?`<div class="o" style="left:${X(d.owner)}%"></div>`:""}</div></td><td><span class="cell" style="${col(d.ai)}">${d.ai}</span></td><td class="hm"><span class="cell" style="${col(d.dem)}">${d.dem}</span></td><td class="hm"><span class="cell" style="${col(d.odds)}">${d.odds}</span></td><td class="sc">${d.score.toFixed(1)}</td><td class="hm"><span class="dq ${d.dq}">${DQL[d.dq]}</span></td></tr>`;
+    const det=S.open===d.n?`<tr class="det"><td></td><td colspan="13"><b>Details:</b> ${d.x}<br><b>Bewilligung / Zugang:</b> ${d.lic}<br><b>Ausbildungslohn:</b> ${d.train} · <b>Weg:</b> ${d.r} · <b>Noten:</b> KI ${d.ai}, Nachfrage ${d.dem}, Geld ${money(d).toFixed(1)}, Eigene Firma ${d.own}, Chancen ${d.odds}</td></tr>`:"";
+    return row+det}).join("")||`<tr><td colspan="14" class="note" style="padding:20px">Keine Treffer. Filter lockern.</td></tr>`;
+  $("tbl").querySelectorAll("tr.row").forEach(tr=>tr.onclick=()=>{S.open=S.open===tr.dataset.n?null:tr.dataset.n;render()});
+  document.querySelectorAll("th.s").forEach(th=>{const a=th.dataset.k===S.sort;th.classList.toggle("act",a);th.textContent=th.textContent.replace(/ [▲▼]$/,"")+(a?(S.dir<0?" ▼":" ▲"):"")});
+  const top=all[0], best$=[...D].sort((a,b)=>b.top-a.top)[0], fast=r.length?[...r].sort((a,b)=>b.start-a.start)[0]:null;
+  $("kpis").innerHTML=`<div class="kpi"><div class="l">Platz 1 (Gewichtung: ${S.wn})</div><div class="v">${top.n.split(" →")[0].split(" (")[0]}</div><div class="s">Score ${top.score.toFixed(1)}</div></div>
+  <div class="kpi"><div class="l">Höchster Top-Lohn</div><div class="v">${best$.n.split(" (")[0]}</div><div class="s">bis ${best$.top}k, Chancen ${best$.odds}/10</div></div>
+  <div class="kpi"><div class="l">Höchster Startlohn (gefiltert)</div><div class="v">${fast?fast.n.split(" (")[0].split(" →")[0]:"–"}</div><div class="s">${fast?fast.start+"k im 1. Jahr":""}</div></div>
+  <div class="kpi"><div class="l">Elektro vs. WMS-Büro</div><div class="v">${D[0].top}k vs. ${D[30].top}k</div><div class="s">Top 20 %; KI-fest ${D[0].ai} vs. ${D[30].ai}</div></div>`;
+}
+// Filter-Events
+[["q","q",v=>v],["minStart","minStart",Number],["minTop","minTop",Number],["minAi","minAi",Number],["maxYrs","maxYrs",Number]].forEach(([id,key,f])=>$(id).oninput=e=>{S[key]=f(e.target.value);render()});
+chips($("fCat"),CATS,"cat");chips($("fRoute"),ROUTES,"route");
+$("fOwn").onclick=e=>{S.own=!S.own;e.target.classList.toggle("on",S.own);render()};
+$("fGood").onclick=e=>{S.good=!S.good;e.target.classList.toggle("on",S.good);render()};
+document.querySelectorAll("th.s").forEach(th=>th.onclick=()=>{const kk=th.dataset.k;if(S.sort===kk)S.dir*=-1;else{S.sort=kk;S.dir=kk==="name"||kk==="route"||kk==="yrs"?1:-1}render()});
+$("reset").onclick=()=>{Object.assign(S,{q:"",minStart:0,minTop:0,minAi:0,maxYrs:12,cat:"Alle",route:"Alle",own:false,good:false});$("q").value="";$("minStart").value=0;$("minTop").value=0;$("minAi").value=0;$("maxYrs").value=12;$("fOwn").classList.remove("on");$("fGood").classList.remove("on");chips($("fCat"),CATS,"cat");chips($("fRoute"),ROUTES,"route");render()};
+weights();render();
+
+// ---------- Tabs ----------
+function tab(){const h=(location.hash||"#vergleich").slice(1);document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+h));document.querySelectorAll("#tabs a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));window.scrollTo(0,0)}
+window.addEventListener("hashchange",tab);tab();
+
+// ---------- Rechner ----------
+const chf=n=>"CHF "+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,"'");
+const CP=[["Elektriker allein",115,1400,0,80000,35000,10],["Elektro, 3 Monteure",120,1450,3,80000,45000,12],["Sanitär allein",110,1400,0,78000,30000,12],["Maler allein",75,1450,0,70000,20000,5],["Psychotherapeut",155,1100,0,80000,30000,0]];
+$("cpre").innerHTML=CP.map((p,i)=>`<button class="chip" data-i="${i}">${p[0]}</button>`).join("");
+$("cpre").querySelectorAll("button").forEach(b=>b.onclick=()=>{const p=CP[+b.dataset.i];["rate","hours","emp","ec","fix","mat"].forEach((id,j)=>$(id).value=p[j+1]);$("cpre").querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");calc()});
+function calc(){
+  const rate=+$("rate").value,h=+$("hours").value,e=+$("emp").value,ec=+$("ec").value,fix=+$("fix").value,mat=+$("mat").value;
+  $("vRate").textContent=rate;$("vHours").textContent=h;$("vEmp").textContent=e;$("vEc").textContent=chf(ec).slice(4);$("vFix").textContent=chf(fix).slice(4);$("vMat").textContent=mat;
+  const ownerH=e>0?Math.max(h-250*Math.min(e,4),500):h;
+  const rev=rate*(ownerH+e*h),m=rev*mat/100,emp=e*ec,fx=fix*(1+0.35*e),pre=rev+m-emp-fx,soc=Math.max(pre,0)*0.18,net=pre-soc;
+  $("oRev").textContent=chf(rev);$("oMat").textContent=chf(m);$("oEmp").textContent="− "+chf(emp);$("oFix").textContent="− "+chf(fx);$("oSoc").textContent="− "+chf(soc);$("oYear").textContent=chf(net);$("oMonth").textContent=chf(net/12);
+  $("oNote").textContent=e>0?`Inhaber verrechnet selbst nur noch ca. ${ownerH} h, weil Offerten, Planung und Führung Zeit kosten.`:"Allein: jede Stunde, die nicht verrechnet wird (Offerten, Material, Buchhaltung), kostet direkt Einkommen.";
+}
+["rate","hours","emp","ec","fix","mat"].forEach(id=>$(id).oninput=()=>{$("cpre").querySelectorAll("button").forEach(x=>x.classList.remove("on"));calc()});calc();
+</script>
+</body></html>
